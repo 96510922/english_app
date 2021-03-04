@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English_App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+    <div class="menuButton">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </div>
+    <div class="menu">
+        <div class="menu1 menu-item">About</div>
+        <div class="menu2 menu-item">Home</div>
+        <div class="menu3 menu-item">Contact</div>
+    </div>
+
+
+
+    <div id="app" class="wrapper">
+        <div class="title mb-20">
+            <h1 class="mt-5 mb-5"><span>English Challenge</span></h1>
+        </div>
+      <button v-if="!startFlag" @click="gameStart" class="startBtn mb-20 btn-lg">START</button>
+       
+        <div v-if="startFlag" >
+            <h3 class="mb-5">{{count}}点/{{fullScore}}点</h3>
+            <div v-for="(item, questionIndex) in questions"
+                 v-bind:key="questionIndex">
+                <h1 class="m-5">{{ questionIndex+1 }}. {{item.question}} </h1> 
+                <button 
+                        class="btn btn-primary  btn-block mb-4"
+                        v-for="(choice , choiceIndex) in item.choices"
+                        v-bind:key="choiceIndex"
+                        @click="click_choice(questionIndex,choiceIndex)">
+                        {{ choiceIndex+1 }}.{{ choice.answer }}
+                </button>
+                <p :class="{ changeColor : red }"  v-if="answerList[questionIndex]">{{ judge(questionIndex) }}</p>
+            </div>           
+        </div>
+        
+      
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>    
+    <script src="main.js"></script>
+
+</body>
+</html>
